@@ -1,0 +1,10 @@
+# Main project dependencies
+tabulate
+pytest
+pytest-cov
+
+# Tools for code style and quality
+black
+isort
+ruff
+pre-commit
