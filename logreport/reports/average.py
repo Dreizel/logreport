@@ -1,9 +1,11 @@
-from typing import Iterable
 from collections import defaultdict
+from collections.abc import Iterable
+
 from logreport.domain import LogRecord
 
+
 class AverageReport:
-    name = 'average'
+    name = "average"
 
     def run(self, records: Iterable[LogRecord]) -> list[dict]:
         """
@@ -21,11 +23,7 @@ class AverageReport:
         for url, times in groups.items():
             total = len(times)
             avg = round(sum(times) / total, 3)
-            result.append({
-                'handler': url,
-                'total': total,
-                'avg_response_time': avg
-            })
+            result.append({"handler": url, "total": total, "avg_response_time": avg})
 
         result.sort(key=lambda row: row["total"], reverse=True)
 

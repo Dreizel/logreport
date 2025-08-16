@@ -1,5 +1,7 @@
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Protocol, Iterable, runtime_checkable
+from typing import Protocol
+
 
 @dataclass(frozen=True)
 class LogRecord:
@@ -18,5 +20,4 @@ class Report(Protocol):
 
     name: str
 
-    def run(self, records: Iterable[LogRecord]) -> list[dict]:
-        ...
+    def run(self, records: Iterable[LogRecord]) -> list[dict]: ...

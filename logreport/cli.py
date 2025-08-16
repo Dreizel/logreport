@@ -1,22 +1,19 @@
-from tabulate import tabulate
 from argparse import ArgumentParser
+
+from tabulate import tabulate
+
+from logreport.exceptions import InvalidReportError, LogReportError
 from logreport.io_ import load_records
-from logreport.utils import parse_date
-from logreport.exceptions import LogReportError, InvalidReportError
 from logreport.reports import AVAILABLE_REPORTS
-from logreport.reports.average import AverageReport
+from logreport.utils import parse_date
 
-parser = ArgumentParser(description='LOG reports script')
+parser = ArgumentParser(description="LOG reports script")
 
+parser.add_argument("--files", required=True, type=str, nargs="+", help="Paths to log file")
 parser.add_argument(
-    '--files', required=True, type=str, nargs='+', help="Paths to log file"
+    "--report", required=True, type=str, choices=["average"], help="Read type: average"
 )
-parser.add_argument(
-    '--report', required=True, type=str, choices=['average'], help="Read type: average"
-)
-parser.add_argument(
-    '--date', type=str, help="Filters the report by date"
-)
+parser.add_argument("--date", type=str, help="Filters the report by date")
 
 args = parser.parse_args()
 
@@ -31,7 +28,7 @@ def main():
             raise InvalidReportError(f"Unknown report: {args.report}")
 
         rows = report.run(records)
-        print(tabulate(rows, headers='keys'))
+        print(tabulate(rows, headers="keys"))
         return 0
 
     except LogReportError as e:
