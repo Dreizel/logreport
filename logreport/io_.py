@@ -10,6 +10,8 @@ def load_records(paths: list[str], date_filter: str | None) -> Iterator[LogRecor
             for lineno, line in enumerate(file, start=1):
                 try:
                     log_data = json.loads(line)
+                    if "@timestamp" in log_data:
+                        log_data['timestamp'] = log_data.pop('@timestamp')
                     log_record = LogRecord(**log_data)
                 except Exception as e:
                     raise LogParseError(f"{path}:{lineno}: {e}")
