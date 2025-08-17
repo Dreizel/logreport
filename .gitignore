@@ -4,3 +4,4 @@ __pycache__/
 .vscode/
 .pycharm/
 .pytest_cache/
+.coverage

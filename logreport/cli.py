@@ -7,18 +7,20 @@ from logreport.io_ import load_records
 from logreport.reports import AVAILABLE_REPORTS
 from logreport.utils import parse_date
 
-parser = ArgumentParser(description="LOG reports script")
 
-parser.add_argument("--files", required=True, type=str, nargs="+", help="Paths to log file")
-parser.add_argument(
-    "--report", required=True, type=str, choices=["average"], help="Read type: average"
-)
-parser.add_argument("--date", type=str, help="Filters the report by date")
+def my_parse_args():
+    parser = ArgumentParser(description="LOG reports script")
+    parser.add_argument("--files", required=True, type=str, nargs="+", help="Paths to log file")
+    parser.add_argument(
+        "--report", required=True, type=str, choices=["average"], help="Read type: average"
+    )
+    parser.add_argument("--date", type=str, help="Filters the report by date")
 
-args = parser.parse_args()
+    return parser.parse_args()
 
 
 def main():
+    args = my_parse_args()
     try:
         date = parse_date(args.date)
         records = load_records(args.files, date)
